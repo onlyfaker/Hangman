@@ -60,8 +60,8 @@ word_blanks = []
 chosen_word = random.choice(d_list)
 print(chosen_word)
 
-letters = list(chosen_word)#letters as a list
-
+letters = list(chosen_word)#letters as a list#todo - use this
+print(letters)
 #blanks printout
 blanks = len(chosen_word)
 br=0
@@ -69,9 +69,9 @@ while br!=blanks:
     one_blank = '_'
     word_blanks.append(one_blank)
     br+=1
-normal_word_blanks =  " ".join(word_blanks)
+normal_word_blanks =  "".join(word_blanks)#todo - and use this
 print("Word to guess: ",normal_word_blanks)#blanks but in normal mode lol
-print(list(normal_word_blanks))#TODO -  use this transformation to acess blanks and change them for letters
+print(list(normal_word_blanks))#TODO - use this transformation to acess blanks and change them for letters
 
 #todo - not finished gameplay
 life = 6
@@ -83,7 +83,9 @@ while(life!=0):
 
     print(lower_case_guess)
     if (lower_case_guess in chosen_word):
-
+        # for lower_case_guess in letters:#todo - not working
+        #     index = letters.index(lower_case_guess)
+        #     print(index)
         print(f"******************{life}/6 lifes left**************")
         print("Guessed letters: ",",".join(letters_guessed))
         print(hangman[life])
