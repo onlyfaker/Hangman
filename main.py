@@ -71,7 +71,14 @@ while br!=blanks:
     br+=1
 normal_word_blanks =  "".join(word_blanks)#todo - and use this
 print("Word to guess: ",normal_word_blanks)#blanks but in normal mode lol
-print(list(normal_word_blanks))#TODO - use this transformation to acess blanks and change them for letters
+list_of_blanks = list(normal_word_blanks)#TODO - use this transformation to acess blanks and change them for letters
+print(list_of_blanks)
+
+br1=0
+for i in range(len(letters)):  # Use enumeration instead
+    if letters[i] == 'c':#gueesed letter = 'c'
+        print('index is ',i)
+        # list_of_blanks[i] #TODO - finish sWITCHING BLANKS FOR LETTERS, THE  index for letters is working
 
 #todo - not finished gameplay
 life = 6
