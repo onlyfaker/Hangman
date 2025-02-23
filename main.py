@@ -1,8 +1,10 @@
 import random
-#todo - switching letters for blanks and printing
-#todo - expand the the of words to dictionary list
+from hangman_art import LOGO
+from hangman_words import WORD_LIST
 
-d_list = ["mouse", "crocodile","zebra"]
+
+print(LOGO,'\n')
+d_list = WORD_LIST
 hangman = [
     """
   +---+
@@ -11,8 +13,7 @@ hangman = [
  /|\  |
  / \  |
       |
-=========
-YOU LOSE H A H A H A H A""","""
+=========""","""
   +---+
   |   |
   O   |
@@ -58,51 +59,61 @@ YOU LOSE H A H A H A H A""","""
 word_blanks = []
 #random word from the list choice
 chosen_word = random.choice(d_list)
-print(chosen_word)
+letters = list(chosen_word)#letters as a list#
 
-letters = list(chosen_word)#letters as a list#todo - use this
-print(letters)
-#blanks printout
+#blanks print-out
 blanks = len(chosen_word)
 br=0
 while br!=blanks:
     one_blank = '_'
     word_blanks.append(one_blank)
     br+=1
-normal_word_blanks =  "".join(word_blanks)#todo - and use this
-print("Word to guess: ",normal_word_blanks)#blanks but in normal mode lol
-list_of_blanks = list(normal_word_blanks)#TODO - use this transformation to acess blanks and change them for letters
-print(list_of_blanks)
 
-br1=0
-for i in range(len(letters)):  # Use enumeration instead
-    if letters[i] == 'c':#gueesed letter = 'c'
-        print('index is ',i)
-        # list_of_blanks[i] #TODO - finish sWITCHING BLANKS FOR LETTERS, THE  index for letters is working
-
-#todo - not finished gameplay
 life = 6
 letters_guessed = ""
+counter = 0
+#while we dont win, keep guessing and check if the letter is in word loop
 while(life!=0):
-    guess = input("Guess a letter: ")
-    lower_case_guess = guess.lower()
+    print("Word to guess:", " ".join(word_blanks))
+    user_guess = input("Guess a letter: ")
+    lower_case_guess = user_guess.lower()
+    #can I check these condtitions with try and catch, and if so is it better with 'if' or 'try/catch'
+    if len(user_guess) != 1:
+        print("Error: Please enter exactly one letter!\n")
+        continue
+    if lower_case_guess in letters_guessed:
+        print("Guessed letters: ",",".join(letters_guessed))
+        print('You have already guessed the letter ', lower_case_guess,' :)\n')
+        continue
     letters_guessed+=lower_case_guess
 
-    print(lower_case_guess)
     if (lower_case_guess in chosen_word):
-        # for lower_case_guess in letters:#todo - not working
-        #     index = letters.index(lower_case_guess)
-        #     print(index)
-        print(f"******************{life}/6 lifes left**************")
+        for i in range(len(letters)):#we are getting index from here which help with letters and blanks
+            if letters[i] == lower_case_guess:
+                word_blanks[i] = lower_case_guess
+                counter+=1
+        print(" ".join(word_blanks))
+        #the counter tracks condition when all the letters are guessed you win
+        if counter == len(letters):
+            print("\n YOU WIN!!! LESS GOOO")
+            break
         print("Guessed letters: ",",".join(letters_guessed))
         print(hangman[life])
+        print(f"******************{life}/6 lifes left**************")
+
 
     else:
-        print('wrong')
+
+        print('You guessed ', user_guess, ' and it is not in the word :)')
         life-=1
-        print(f"******************{life}/6 lifes left**************")
         print("Guessed letters: ",",".join(letters_guessed))
         print(hangman[life])
+        print(f"******************{life}/6 lifes left**************")
+#when done with a loop, check if we have 0 lifes, then we lose
+if life==0:
+    print("\n YOU LOSE H A H A H A H A\n")
+    print(chosen_word)
+
 
 
 
